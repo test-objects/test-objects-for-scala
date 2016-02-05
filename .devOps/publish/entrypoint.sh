@@ -7,6 +7,5 @@ host = api.bintray.com
 user = $BINTRAY_USERNAME
 password = $BINTRAY_API_KEY
 EOF
-echo $BINTRAY_USERNAME
 
 sbt publish

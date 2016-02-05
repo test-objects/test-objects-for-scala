@@ -8,10 +8,15 @@ before_install:
 services:
   - docker
 script:
-  - ./devOps.sh unitTest
-  - echo -e "AWS_REGION=us-west-2 \nAWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \nAWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" > .devOps/env_auth.env
-  - ./devOps.sh setEnv
-  - ./devOps.sh publish
+  - bash ./devOps.sh unitTest
+  - |
+    cat <<EOF > .devOps/env_auth.env
+    AWS_REGION=us-west-2
+    AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    EOF
+  - bash ./devOps.sh setEnv
+  - bash ./devOps.sh publish
 env:
   global:
   - AWS_REGION=us-west-2
