@@ -1,0 +1,19 @@
+sudo: required
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/1.6.0rc2/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+services:
+  - docker
+script:
+  - ./devOps.sh unitTest
+  - echo -e "AWS_REGION=us-west-2 \nAWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \nAWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" > .devOps/env_auth.env
+  - ./devOps.sh setEnv
+  - ./devOps.sh publish
+env:
+  global:
+  - AWS_REGION=us-west-2
+  - secure: BFu59GYDP9gs2vG4jAsgVSO34pzp3/ZsITFEDJt6/PcVrMapuurgL6Y7mehfaLuyh2U30lKyqtbI33DtxGw8cO+8bZ4yABnF3/em2nqtbBjKsFv+x6SbP6cXLaF/JXAsvHH80tGY+9ycM5ZUQjdzgCWGT83PZnbTDrPvYPCLpfnhiwM+K67qnhbcLy3Vxv3YhfpWd9fejHxvTysP/KMo/AgzccvVLfGCuoNRQj7u+XDlgBWn0MGbgvB/yCTNeyyymOBzvs8GAnz+jpgdKkvY+AcvC4WI/AHb8MmvYD7IJXUCXvRsGEF014+wfInQz8sJ4PperIz7SZASV04WdqrMZKGRo8G4r9+XdHQYnxaXy0DMP7LPwi9dnPXY/7aSY+JjYF3nk1qEmEEZD06rquyIISsdiH2YopapEGbnJlj6doJ93dpJTE9o8nGjdK3APAeHXgyUYo7VCaqnRJXLW/uky9trtQtujDIS5ShjeHplhaJO4mdQVKtxIXIWr3JmUjRFW2zJpU2/1kAWHxYOlv9HktJPN/pi8bEz5GCtehsZTxPHmDZGzhRS/V/uPMjwmvBCqOvtCcbjQSksnQPh5u3U2C/+Fsy1WtdjWoW21ng9+yQpdCyrku/PhxwcRAblH7ju5HSZv4iqzlKn7TpYwaZsLdQxsu1pNe+NYIc6gsrUcG8=
+  - secure: M1H1OmlTcW8KUTghomfGIZ2sTwnJ4KoxKHgJqFw5Vb09iNqWCK8SmWDRTxDYlXzPhm1HOEuGKYEVnnO/UfgrzUj21KNeUiAW5bcDw6KeVI56yPxL946TsYNuzKJ5VkJb6RC2uuc6wYJXoaBz5mfRi0BjIUx+mfXt7SZGqJUPJaXk8woLAf6bhNxUiDyFuflm0ywGpU+Djj3cJ/8kJtvZ9QMwronRSwvLato960mqE9nqgxV/odfooBWOW7iI2mA7tIcFCpklBE3NHP7TyX/CP2tH87W5wV7JDNNDZSzWRr3hlEeSfxoT46x1laCxzoOdlgaGUIb8fV0AuPZOh5PcavdMunUe8X7S1iBombIRM7p6e7iKw88BSeui9TAVmhbbH0VujMWM7tJmCu3/nkdrXVa28cIe9i/hgQ1M7HRa5bUIQgQ6XxIWWtcxsPCl0zKtpf6egPGZmVDIko0B/T9kFvieB2ngbclBmCxtOUM0GHTDEnQffWT0xqiugoMjP6CYcqzA1C5ue1XrqUkNyqMpdPo4NUIsK/+hMqdxQXnArkIkjxUy64bflmTGclNFkZg0ENGy2ZQDYDMd9OepHZdIsKlKD2eiJEVA4exHZp0wJo3sZ/jkYcY4Hens3HtYqv3sPb5l4qHMZANm6KnYfdto2WvlKbvPScEJM9a2h7NzqkU=
+  - secure: RLJ44sY7w1W9wxWGzlFmQZZNywuCjr1QIDe3cdJToPn/4OZXwnm8GGhDZK+hgg1EXGN4WlwatgaYz21e/eB+PsAjpzx7AS3jMNhsR4Uc1X99jVqHrvAq/HqgZLrI/zNrR9iGf8oV+YtJfs7aWT04RNaxeHlcNe5ZgL7AlvpVYUykuUOx4m4PneL+16/LyhkmwRyUsCKFgKdROnqFxw6W6VzkQSxaga1AMgyYC+6coATLn8et/Pr3c6mbIzrD3+5H7LOH2nN13/hjujaOLclADvW6YofJ5WbKW9eCNbNsE1eLxK6TRbfSj5CYOs7C3seK2eQfCYH5SxJjseAEd2JPQvYz0WnBrcouC/WwSchaUuPH3X7Ymr1rNYu8Ea99R35H2vUui5Up3CTxCAXiyDqVqvJTKOvf3JI0qDk5PeuMKWy+pxC1RQ9cPeFY4zCpL5io9zIlNfZUFnckTDH57RxCq9H/690DKgftz5JDZfFu8vMFSCFrPP9+Ha/p1WPdRIZ4/LhEBBwoT0Yk0aqs1HgyiUQgXrbMRKOeWX5mQ1Hegk61xr0bUt4S9X2szQwFOI1xq64j1SiJFC/GPg8RSyWecsvNZEnb6AUJ5iqOi+NTlQd5GA5NWpADqiCP54Ax4WFNuXDyLfnE+AsNs9Zfs3RljhDvTjhlcfYcBxTI3BNXaqQ=

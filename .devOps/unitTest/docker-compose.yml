@@ -1,0 +1,7 @@
+version: 2
+services:
+  unitTest:
+    extends:
+      file: ../.common/docker-compose.yml
+      service: sbt
+    entrypoint: .devOps/unitTest/entrypoint.sh

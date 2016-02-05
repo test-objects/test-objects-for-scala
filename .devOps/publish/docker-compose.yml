@@ -1,0 +1,9 @@
+version: 2
+services:
+  publish:
+    extends:
+      file: ../.common/docker-compose.yml
+      service: sbt
+    entrypoint: .devOps/publish/entrypoint.sh
+    env_file:
+      - ../env

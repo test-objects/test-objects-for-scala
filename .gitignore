@@ -1,0 +1,12 @@
+### JetBrains
+*.iml
+.idea/
+
+### SBT
+target/
+
+### Sensitive Files
+*env
+
+### TMP
+.tmp/

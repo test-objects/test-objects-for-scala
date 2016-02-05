@@ -1,0 +1,15 @@
+version: 2
+services:
+  sbt:
+    image: repworth/bash-jdk-sbt:bash4.3-jdk1.8-sbt13.9
+    extends:
+      service: src
+    volumes:
+      - ~/.ivy2/cache:/root/.ivy2/cache
+      - ~/.sbt:/root/.sbt
+  src:
+    image: scratch
+    dns: 8.8.8.8
+    volumes:
+      - ../../:/io/github/chrisdostert
+    working_dir: /io/github/chrisdostert
