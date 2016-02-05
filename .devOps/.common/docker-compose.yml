@@ -1,4 +1,4 @@
-version: 2
+version: "2"
 services:
   sbt:
     image: repworth/bash-jdk-sbt:bash4.3-jdk1.8-sbt13.9
