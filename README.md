@@ -10,7 +10,7 @@
 ```SCALA
 // build.sbt
 
-libraryDependencies += "io.github.chrisdostert" %% "test-objects-for-scala" % "testObjectsForScalaVersion"
+libraryDependencies += "io.github.chrisdostert" %% "test-objects-for-scala" % testObjectsForScalaVersion
 
 ```
 
