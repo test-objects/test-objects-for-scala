@@ -24,6 +24,4 @@ This code is open source software licensed under the [Apache 2.0 License](http:/
 
 # Contributing
 
-## Dev Ops
-
-see [CONTRIBUTING.md](CONTRIBUTING.md)
+refer to [CONTRIBUTING.md](CONTRIBUTING.md)
