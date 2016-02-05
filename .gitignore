@@ -7,7 +7,7 @@ target/
 
 ### Sensitive Files
 *env
-!.devOps/setEnv/
+!env/
 
 ### TMP
 .tmp/
