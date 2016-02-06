@@ -1,4 +1,5 @@
-## DEV OPS
+## Dev Ops
+This project adheres to the [Dev Op spec](http://devopspec.com/)
 
 ### Configuration
 configuration is obtained via [summon](http://conjurinc.github.io/summon/)
