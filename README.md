@@ -5,18 +5,39 @@ Test objects are exposed over via a fluent interface which makes usage fairly se
 supporting auto-completion. 
 
 ## Basic
-If the basic test object API supports all the test objects you need, all you need to do is directly reference `ATest()`.
+If the basic test object API supports all the test objects you need:
 
+use directly
 ```SCALA
 import org.testobjects.ATest
 
-ATest().string.nonNull
+class SomeTest {
 
-ATest().seq.withElements(
-  ATest().long.withValue(2),
-  ATest().long.nonNull
-)
+  ATest().string.nonNull
+    
+  ATest().seq.withElements(
+    ATest().long.withValue(2),
+    ATest().long.nonNull
+  )
 
+}
+```
+
+or via mixin
+```SCALA
+import org.testobjects.ATest
+
+class SomeTest 
+  extends ATest {
+
+  string.nonNull
+    
+  seq.withElements(
+    long.withValue(2),
+    long.nonNull
+  )
+
+}
 ```
 
 ## Creating Your Own Test Object API
@@ -114,7 +135,11 @@ import co.onaboat.tdk.testobjects.ATest
 
 class SomeTest {
 
+  // ooh.. custom test objects
   ATest().boat.nonNull
+  
+  // ahh..  basic test objects
+  ATest().int.nonNull
 
 }
 ```
@@ -132,6 +157,9 @@ class SomeTest
   boat.withValues(
     name = string.nonNull
   )
+  
+  // ahh..  basic test objects
+  int.nonNull
 
 }
 ```
