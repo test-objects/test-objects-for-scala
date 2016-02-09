@@ -14,15 +14,15 @@ before_script:
 services:
   - docker
 script:
-  - bash ./devOps.sh unit-test
+  - bash dev-op-spec dev-ops run unit-test
   - |
     cat <<EOF > .dev-op-spec/set-environment/env_auth.env
     AWS_REGION=us-west-2
     AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
     AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     EOF
-  - bash dev-op-spec set-environment
-  - bash dev-op-spec  publish
+  - bash dev-op-spec dev-ops run set-environment
+  - bash dev-op-spec dev-ops run publish
 env:
   global:
   - AWS_REGION=us-west-2

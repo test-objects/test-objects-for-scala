@@ -1,7 +1,5 @@
 package org.testobjects
 
-import io.github.chrisdostert.testobjects.testobjects._
-
 /**
   * A fluent test objects API
   */
