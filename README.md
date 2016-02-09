@@ -1,8 +1,7 @@
 ![build status](https://travis-ci.org/test-objects/test-objects-for-scala.svg?branch=master)
 
 # Usage
-Test objects are exposed over via a fluent interface which makes usage fairly self explanatory from within any editor 
-supporting auto-completion. 
+Test objects are exposed via a [fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) which makes usage fairly self explanatory from within any editor supporting auto-completion. 
 
 ## Basic
 If the basic test object API supports all the test objects you need:
