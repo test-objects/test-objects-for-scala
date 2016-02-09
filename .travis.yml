@@ -14,6 +14,7 @@ before_script:
 services:
   - docker
 script:
+  - ls -al
   - bash dev-op-spec dev-ops run unit-test
   - |
     cat <<EOF > .dev-op-spec/set-environment/env_auth.env
