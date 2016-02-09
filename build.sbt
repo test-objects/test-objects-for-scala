@@ -12,5 +12,19 @@ scalaVersion := "2.11.7"
 libraryDependencies +=
   "org.scalatest" %% "scalatest" % "2.2.5" % "test"
 
-bintrayVcsUrl := Some("git@github.com:test-objects/test-objects-for-scala.git")
-bintrayOrganization := Some("test-objects")
+publishTo := Some("Bintray API Realm" at "https://api.bintray.com/maven/test-objects/maven/test-objects-for-scala/;publish=1")
+
+publishMavenStyle := true
+
+credentials += Credentials(
+  "Bintray API Realm",
+  "api.bintray.com",
+  sys.env.getOrElse(
+    "BINTRAY_USERNAME",
+    ""
+  ),
+  sys.env.getOrElse(
+    "BINTRAY_API_KEY",
+    ""
+  )
+)
