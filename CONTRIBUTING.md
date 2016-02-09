@@ -15,12 +15,10 @@ for supported values see [env.yml](.dev-op-spec/set-environment/env.yml)
 dev-op-spec dev-ops run set-environment
 ```
 
-unit test 
 ```shell
 dev-op-spec dev-ops run unit-test
 ```
 
-publish
 ```shell
 dev-op-spec dev-ops run publish
 ```

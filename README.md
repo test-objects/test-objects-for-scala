@@ -1,8 +1,7 @@
 ![build status](https://travis-ci.org/test-objects/test-objects-for-scala.svg?branch=master)
 
 # Usage
-Test objects are exposed over via a fluent interface which makes usage fairly self explanatory from within any editor 
-supporting auto-completion. 
+Test objects are exposed via a [fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) which makes usage fairly self explanatory from within any editor supporting auto-completion. 
 
 ## Basic
 If the basic test object API supports all the test objects you need:
@@ -57,8 +56,8 @@ case class Boat(
 ```
 
 It is recommended you put your test infrastructure into a `tdk` package to separate it from your actual tests. 
-Also, it's recommended to separate test objects from other test infrastructure in a testobjects package within your
-tdk package so we don't blow up the root tdk package with an explosion of files:
+Also, it's recommended to separate test objects from other test infrastructure in a `testobjects` package within your
+`tdk` package so we don't blow up the root tdk package with an explosion of files:
 ```text
 co
   |-- onaboat
@@ -67,7 +66,7 @@ co
 ```
 
 It's recommended to name your custom test objects with following the convention `ATest{OBJECT_NAME}`. 
-In our example this would give us ATestBoat. Lets implement ATestBoat:
+In our example this would give us ATestBoat. Lets implement `ATestBoat`:
      
 ```SCALA
 package co.onaboat.tdk.testobjects
