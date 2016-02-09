@@ -13,3 +13,4 @@ libraryDependencies +=
   "org.scalatest" %% "scalatest" % "2.2.5" % "test"
 
 bintrayVcsUrl := Some("git@github.com:test-objects/test-objects-for-scala.git")
+bintrayOrganization := Some("test-objects")

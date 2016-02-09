@@ -5,8 +5,7 @@ Test objects are exposed over via a fluent interface which makes usage fairly se
 supporting auto-completion. 
 
 ## Basic
-If the basic test object API supports all the test objects you need, all you need to do is directly reference `ATest()`. 
-As follows:
+If the basic test object API supports all the test objects you need, all you need to do is directly reference `ATest()`.
 
 ```SCALA
 import org.testobjects.ATest
@@ -20,20 +19,125 @@ ATest().seq.withElements(
 
 ```
 
-## Extending The Basic Test Object API
+## Creating Your Own Test Object API
 In general, your codebase will have custom types. A recommended approach to provide test objects for these types is
-to extend the basic test object API. 
+to extend the basic test object API to include your own types.
 
-The recommended approach for doing this is as follows:
+Lets say you have a custom type:
 
 ```SCALA
-import org.testobjects.ATest
+package co.onaboat
+
+case class Boat(
+  name:String,
+  length:Int,
+  topSpeed:Long
+)
 ```
 
-# Available Versions
-[see Bintray](https://bintray.com/test-objects/maven/test-objects-for-scala)
+It is recommended you put your test infrastructure into a `tdk` package to separate it from your actual tests. 
+Also, it's recommended to separate test objects from other test infrastructure in a testobjects package within your
+tdk package so we don't blow up the root tdk package with an explosion of files:
+```text
+co
+  |-- onaboat
+     |-- tdk
+        |-- testobjects        
+```
+
+It's recommended to name your custom test objects with following the convention `ATest{OBJECT_NAME}`. 
+In our example this would give us ATestBoat. Lets implement ATestBoat:
+     
+```SCALA
+package co.onaboat.tdk.testobjects
+
+import org.testobjects.ATest
+
+trait ATestBoat {
+
+  def withValues(
+    name : String = ATest().string.nonNull,
+    length : Int = ATest().int.nonNull,
+    topSpeed : Long = ATest().long.nonNull
+  ): Boat =
+    new Boat(
+        name = name,
+        length = length,
+        topSpeed = topSpeed
+     )  
+
+  val notNull:Boat =
+    withValues()
+
+}
+
+```
+
+Although it's possible to use `ATestBoat` and any other test objects directly, it's recommended to make them all
+available via a single API so they're easier to consume. 
+
+It is recommended to implement your custom API via a trait named `ATest`, and provide a companion object exposing a
+single lazy instance.
+
+From your custom API you will generally still want access to the test objects exposed by the simple test objects API. 
+We can achieve that by extending `org.testobjects.ATest` in our custom API:
+
+```SCALA
+package co.onaboat.tdk.testobjects
+
+trait ATest
+  extends org.testobjects.ATest {
+
+  lazy val boat: ATestBoat =
+    new ATestBoat {}
+
+}
+
+object ATest {
+
+  private lazy val aTest = new ATest {}
+
+  def apply(): ATest = aTest
+
+}
+
+```
+
+And we're ready to go!
+Now all you need to do is use it:
+
+use directly:
+```SCALA
+package co.onaboat
+
+import co.onaboat.tdk.testobjects.ATest
+
+class SomeTest {
+
+  ATest().boat.nonNull
+
+}
+```
+
+or via mixin
+```SCALA
+package co.onaboat
+
+import co.onaboat.tdk.testobjects.ATest
+
+class SomeTest
+  extends ATest {
+
+  boat.nonNull
+
+}
+```
+
 
 # Installation
+
+## Available Versions
+[see Bintray](https://bintray.com/test-objects/maven/test-objects-for-scala)
 
 ## SBT
 

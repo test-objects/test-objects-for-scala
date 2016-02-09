@@ -9,6 +9,8 @@ trait ATest {
 
   lazy val instant: ATestInstant = new ATestInstant {}
 
+  lazy val int: ATestInt = new ATestInt {}
+
   lazy val long: ATestLong = new ATestLong {}
 
   lazy val option: ATestOption = new ATestOption {}
