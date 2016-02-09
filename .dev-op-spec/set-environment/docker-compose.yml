@@ -6,5 +6,7 @@ services:
       service: src
     entrypoint: .dev-op-spec/set-environment/entrypoint.sh
     image: repworth/summon_s3:summon_s30.3
-    env_file:
-      - ../.common/env_auth.env
+    environment:
+      - AWS_REGION=us-west-2
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY

@@ -1,3 +1,4 @@
 #!/bin/sh
-ENV_NAME=$1
-summon --provider summon-s3 -f .dev-op-spec/env.yml cat @SUMMONENVFILE > .dev-op-spec/env
+summon \
+  -f .dev-op-spec/set-environment/env.yml \
+  tail -c1 @SUMMONENVFILE | read -r _ || echo > .dev-op-spec/.common/env

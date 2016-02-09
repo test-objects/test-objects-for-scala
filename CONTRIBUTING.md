@@ -8,9 +8,10 @@ for supported values see [env.yml](.dev-op-spec/set-environment/env.yml)
 
 ### How To Run
 
-*note: this requires you've created an env_auth.env (see [template](.dev-op-spec/set-environment/env_auth.env.template))
- in the [.dev-op-spec dir](.dev-op-spec/)
 ```shell
+# requires following environment variables present
+#   - AWS_ACCESS_KEY_ID
+#   - AWS_SECRET_ACCESS_KEY
 dev-op-spec dev-ops run set-environment
 ```
 
