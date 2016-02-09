@@ -56,8 +56,8 @@ case class Boat(
 ```
 
 It is recommended you put your test infrastructure into a `tdk` package to separate it from your actual tests. 
-Also, it's recommended to separate test objects from other test infrastructure in a testobjects package within your
-tdk package so we don't blow up the root tdk package with an explosion of files:
+Also, it's recommended to separate test objects from other test infrastructure in a `testobjects` package within your
+`tdk` package so we don't blow up the root tdk package with an explosion of files:
 ```text
 co
   |-- onaboat
@@ -66,7 +66,7 @@ co
 ```
 
 It's recommended to name your custom test objects with following the convention `ATest{OBJECT_NAME}`. 
-In our example this would give us ATestBoat. Lets implement ATestBoat:
+In our example this would give us ATestBoat. Lets implement `ATestBoat`:
      
 ```SCALA
 package co.onaboat.tdk.testobjects
