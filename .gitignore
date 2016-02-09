@@ -7,7 +7,6 @@ target/
 
 ### Sensitive Files
 *env
-!env/
 
 ### TMP
 .tmp/
