@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo $BINTRAY_USERNAME
+echo $BINTRAY_API_KEY
+
 mkdir -p ~/.bintray/
 cat <<EOF > ~/.bintray/.credentials
 realm = Bintray API Realm
