@@ -1,7 +1,7 @@
-![build status](https://travis-ci.org/chrisdostert/test-objects-for-scala.svg?branch=master)
+![build status](https://travis-ci.org/test-objects/test-objects-for-scala.svg?branch=master)
 
 # Available Versions
-[see Bintray](https://bintray.com/chrisdostert/maven/test-objects-for-scala)
+[see Bintray](https://bintray.com/test-objects/maven/test-objects-for-scala)
 
 # Installation
 
@@ -10,7 +10,7 @@
 ```SCALA
 // build.sbt
 
-libraryDependencies += "io.github.chrisdostert" %% "test-objects-for-scala" % testObjectsForScalaVersion
+libraryDependencies += "org.testobjects" %% "test-objects-for-scala" % testObjectsForScalaVersion
 
 ```
 

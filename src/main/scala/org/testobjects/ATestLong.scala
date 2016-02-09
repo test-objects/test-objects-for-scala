@@ -1,4 +1,4 @@
-package io.github.chrisdostert.testobjects.testobjects
+package org.testobjects
 
 trait ATestLong {
 

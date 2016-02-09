@@ -1,4 +1,4 @@
-package io.github.chrisdostert.testobjects
+package org.testobjects
 
 import io.github.chrisdostert.testobjects.testobjects._
 

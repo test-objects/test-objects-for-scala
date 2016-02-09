@@ -1,9 +1,7 @@
 version: "2"
 services:
-  publish:
+  unit-test:
     extends:
       file: ../.common/docker-compose.yml
       service: sbt
-    entrypoint: .devOps/publish/entrypoint.sh
-    env_file:
-      - ../env
+    entrypoint: .dev-op-spec/unit-test/entrypoint.sh

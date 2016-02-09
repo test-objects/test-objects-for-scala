@@ -7,18 +7,22 @@ before_script:
   - curl -L https://github.com/docker/compose/releases/download/1.6.0/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
+  - |
+    cd /usr/local/bin && \
+      sudo curl -O https://raw.githubusercontent.com/dev-op-spec/cli/master/dev-op-spec && \
+      sudo chmod +x dev-op-spec
 services:
   - docker
 script:
-  - bash ./devOps.sh unitTest
+  - bash ./devOps.sh unit-test
   - |
-    cat <<EOF > .devOps/env_auth.env
+    cat <<EOF > .dev-op-spec/set-environment/env_auth.env
     AWS_REGION=us-west-2
     AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
     AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     EOF
-  - bash ./devOps.sh setEnv
-  - bash ./devOps.sh publish
+  - bash dev-op-spec set-environment
+  - bash dev-op-spec  publish
 env:
   global:
   - AWS_REGION=us-west-2

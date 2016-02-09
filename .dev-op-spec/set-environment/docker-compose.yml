@@ -1,10 +1,10 @@
 version: "2"
 services:
-  setEnv:
+  set-environment:
     extends:
       file: ../.common/docker-compose.yml
       service: src
-    entrypoint: .devOps/setEnv/entrypoint.sh
+    entrypoint: .dev-op-spec/set-environment/entrypoint.sh
     image: repworth/summon_s3:summon_s30.3
     env_file:
-      - ../env_auth.env
+      - ../.common/env_auth.env

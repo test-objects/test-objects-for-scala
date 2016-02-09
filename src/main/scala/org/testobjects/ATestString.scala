@@ -1,14 +1,18 @@
-package io.github.chrisdostert.testobjects.testobjects
+package org.testobjects
 
 import java.util.UUID
 
 trait ATestString {
+
+  val decimal: String = "0.0"
 
   val emailAddress: String = "mailbox@domain.com"
 
   def nonEmpty: String = "nonEmpty"
 
   val nonNull: String = ""
+
+  val integer: String = "0"
 
   def ofLength(length: Int): String = Array.fill(length)("a").mkString
 

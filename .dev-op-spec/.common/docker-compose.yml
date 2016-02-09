@@ -11,5 +11,5 @@ services:
     image: scratch
     dns: 8.8.8.8
     volumes:
-      - ../../:/io/github/chrisdostert
-    working_dir: /io/github/chrisdostert
+      - ../../:/test-objects
+    working_dir: /test-objects

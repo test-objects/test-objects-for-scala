@@ -1,7 +1,7 @@
 
 name := "test-objects-for-scala"
 
-organization := "io.github.chrisdostert"
+organization := "org.testobjects"
 
 version := "0.1.0"
 
@@ -12,4 +12,4 @@ scalaVersion := "2.11.7"
 libraryDependencies +=
   "org.scalatest" %% "scalatest" % "2.2.5" % "test"
 
-bintrayVcsUrl := Some("git@github.com:chrisdostert/test-objects-for-scala.git")
+bintrayVcsUrl := Some("git@github.com:test-objects/test-objects-for-scala.git")
