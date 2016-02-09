@@ -128,7 +128,10 @@ import co.onaboat.tdk.testobjects.ATest
 class SomeTest
   extends ATest {
 
-  boat.nonNull
+  // if I care my boat's name is a nonNull string but don't care about it's length or topSpeed
+  boat.withValues(
+    name = string.nonNull
+  )
 
 }
 ```
