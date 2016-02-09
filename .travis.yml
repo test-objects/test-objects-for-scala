@@ -1,24 +1,22 @@
 language: generic
 sudo: required
 before_script:
-  - sudo apt-get remove --purge docker-engine
-  - curl -fsSL https://get.docker.com/ | sh
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/1.6.0/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - |
-    $(cd /usr/local/bin && \
-      sudo curl -O https://raw.githubusercontent.com/dev-op-spec/cli/master/dev-op-spec && \
-      sudo chmod +x dev-op-spec)
+- sudo apt-get remove --purge docker-engine
+- curl -fsSL https://get.docker.com/ | sh
+- sudo rm /usr/local/bin/docker-compose
+- curl -L https://github.com/docker/compose/releases/download/1.6.0/docker-compose-`uname
+  -s`-`uname -m` > docker-compose
+- chmod +x docker-compose
+- sudo mv docker-compose /usr/local/bin
+- ! "$(cd /usr/local/bin && \\\n  sudo curl -O https://raw.githubusercontent.com/dev-op-spec/cli/master/dev-op-spec
+  && \\\n  sudo chmod +x dev-op-spec)\n"
 services:
-  - docker
+- docker
 script:
-  - bash dev-op-spec dev-ops run unit-test
-  - bash dev-op-spec dev-ops run set-environment
-  - bash dev-op-spec dev-ops run publish
+- bash dev-op-spec dev-ops run unit-test
+- bash dev-op-spec dev-ops run set-environment
+- bash dev-op-spec dev-ops run publish
 env:
   global:
-  - secure: BFu59GYDP9gs2vG4jAsgVSO34pzp3/ZsITFEDJt6/PcVrMapuurgL6Y7mehfaLuyh2U30lKyqtbI33DtxGw8cO+8bZ4yABnF3/em2nqtbBjKsFv+x6SbP6cXLaF/JXAsvHH80tGY+9ycM5ZUQjdzgCWGT83PZnbTDrPvYPCLpfnhiwM+K67qnhbcLy3Vxv3YhfpWd9fejHxvTysP/KMo/AgzccvVLfGCuoNRQj7u+XDlgBWn0MGbgvB/yCTNeyyymOBzvs8GAnz+jpgdKkvY+AcvC4WI/AHb8MmvYD7IJXUCXvRsGEF014+wfInQz8sJ4PperIz7SZASV04WdqrMZKGRo8G4r9+XdHQYnxaXy0DMP7LPwi9dnPXY/7aSY+JjYF3nk1qEmEEZD06rquyIISsdiH2YopapEGbnJlj6doJ93dpJTE9o8nGjdK3APAeHXgyUYo7VCaqnRJXLW/uky9trtQtujDIS5ShjeHplhaJO4mdQVKtxIXIWr3JmUjRFW2zJpU2/1kAWHxYOlv9HktJPN/pi8bEz5GCtehsZTxPHmDZGzhRS/V/uPMjwmvBCqOvtCcbjQSksnQPh5u3U2C/+Fsy1WtdjWoW21ng9+yQpdCyrku/PhxwcRAblH7ju5HSZv4iqzlKn7TpYwaZsLdQxsu1pNe+NYIc6gsrUcG8=
-  - secure: M1H1OmlTcW8KUTghomfGIZ2sTwnJ4KoxKHgJqFw5Vb09iNqWCK8SmWDRTxDYlXzPhm1HOEuGKYEVnnO/UfgrzUj21KNeUiAW5bcDw6KeVI56yPxL946TsYNuzKJ5VkJb6RC2uuc6wYJXoaBz5mfRi0BjIUx+mfXt7SZGqJUPJaXk8woLAf6bhNxUiDyFuflm0ywGpU+Djj3cJ/8kJtvZ9QMwronRSwvLato960mqE9nqgxV/odfooBWOW7iI2mA7tIcFCpklBE3NHP7TyX/CP2tH87W5wV7JDNNDZSzWRr3hlEeSfxoT46x1laCxzoOdlgaGUIb8fV0AuPZOh5PcavdMunUe8X7S1iBombIRM7p6e7iKw88BSeui9TAVmhbbH0VujMWM7tJmCu3/nkdrXVa28cIe9i/hgQ1M7HRa5bUIQgQ6XxIWWtcxsPCl0zKtpf6egPGZmVDIko0B/T9kFvieB2ngbclBmCxtOUM0GHTDEnQffWT0xqiugoMjP6CYcqzA1C5ue1XrqUkNyqMpdPo4NUIsK/+hMqdxQXnArkIkjxUy64bflmTGclNFkZg0ENGy2ZQDYDMd9OepHZdIsKlKD2eiJEVA4exHZp0wJo3sZ/jkYcY4Hens3HtYqv3sPb5l4qHMZANm6KnYfdto2WvlKbvPScEJM9a2h7NzqkU=
-  - secure: RLJ44sY7w1W9wxWGzlFmQZZNywuCjr1QIDe3cdJToPn/4OZXwnm8GGhDZK+hgg1EXGN4WlwatgaYz21e/eB+PsAjpzx7AS3jMNhsR4Uc1X99jVqHrvAq/HqgZLrI/zNrR9iGf8oV+YtJfs7aWT04RNaxeHlcNe5ZgL7AlvpVYUykuUOx4m4PneL+16/LyhkmwRyUsCKFgKdROnqFxw6W6VzkQSxaga1AMgyYC+6coATLn8et/Pr3c6mbIzrD3+5H7LOH2nN13/hjujaOLclADvW6YofJ5WbKW9eCNbNsE1eLxK6TRbfSj5CYOs7C3seK2eQfCYH5SxJjseAEd2JPQvYz0WnBrcouC/WwSchaUuPH3X7Ymr1rNYu8Ea99R35H2vUui5Up3CTxCAXiyDqVqvJTKOvf3JI0qDk5PeuMKWy+pxC1RQ9cPeFY4zCpL5io9zIlNfZUFnckTDH57RxCq9H/690DKgftz5JDZfFu8vMFSCFrPP9+Ha/p1WPdRIZ4/LhEBBwoT0Yk0aqs1HgyiUQgXrbMRKOeWX5mQ1Hegk61xr0bUt4S9X2szQwFOI1xq64j1SiJFC/GPg8RSyWecsvNZEnb6AUJ5iqOi+NTlQd5GA5NWpADqiCP54Ax4WFNuXDyLfnE+AsNs9Zfs3RljhDvTjhlcfYcBxTI3BNXaqQ=
+  - secure: jw5aZ3Hk8nFd9QetmewfGK3o0gltDZEg2pCvnocGU024BQs8He233VkeBBYr3iqGatThbmQODuqTmrvtvDSxcG5RiV3bz8H6y/hcfP76vgEfEB1QpvBGhqIMQXFMYV/bc4GRXnAfmtXgTUyBiVtBP1Zhl8MVpvQblSW46iZ5SUdDqOv6fvlS9+7kTVHsDQOI4xTxrfmYhl1yOSt1/f+M1sjtX2YFtYgoy3k4YC5lS0bhVYFgDtIEBFyV+WxWj5pHXTswDwr6Xngn/e/knZHsL5S6IxBlwHfAb2nH3qjniln0EO1Vrm5ukrdNMhj8UckmsSnwOj3r5uZiE9Wb92CawbP6RKvLktx1047C4F/UqDmZRmrfBFJmLhuKpdH/rggbe3SVZ7g9MzjPqUVOx0UBLlC96Z3s/4w+Rpto/tGpbB9mFw/BOW1TOjIIk69bDxdc/+PqMTDbBd829rVvFVNcBXnYGkGBoeP9EYVuqsSR6P9OUZJBbWICYq0N9vSGUWShXYwWR7NwWJaQF/PI6+QVkphPzpv0hqwSpn1o53hT35h6bt7CMFY/DXQwPxJfqoBcsRovG6B9yLhkzxUS8lWfe+q2i0RodkUT7sUsoS1YTftRB8Kg4ZyajVBdLA70Cj1BvlHxQzVOGI3u2N4Lri4p4VM3vmVBsRz2Uz+tmP0hSEw=
+  - secure: MkjDc2QqN5J9LiTGZ1ihvP+3ZGteUEaxgk20J2gIMeb8FpQk0IwTTAJE1W5epEre/GpwE40aQbO1CyyIkYNrwYLoj5+35tmEbRKgh8n29yAZuWzOHQPIlh1CE/Om8mE2HswZkaX2ZFAVAhAvzRKG7bq/fkZphgRR+ten4QSM/viQebgBqdO25rDiNl77fXbWgaay5M7hruZL2/THi8t4LqvmtHIe3IvGgnGMA9n0qL4zBEqm7cUqJ6lannqK3CmBOe7/rbjRw+DvfrCR71oDqYoG9zPOAHwSemUqlXLBAghvP0mCcG1aBsEPlMLxNzON5jy8Uy+tEKdFwnEoEEr5Ai+l5NPfJkg4NXzWhQxQykyXEE3yeQzDcGekzZGQ46pgn/xHBCQtyAZeZ9/8S1asfCtpcBcfnJkimREdzq75qX64Qhr5NKOl3mDodHl+H4sMX33ZEfOZkLoSZpB5c0Q7DEwvK3S2FrjpVhGjTA2BXlpvrCcHrqMxrHlB6cGZWADYlyA2l+KdxBVSQSdoiqRDdn/Vdt5/UNdyKZZcAT1pXw9ZdnC8qx5HOqYlZ1awEmD6GQ5zlIKqOZ6Pgdxmi8TggeMSezH7vVB17OtT0IlpXdtN0MF9ipAlXa+oOflNUb/UwJ2qItoPUE/nmsaZhKymrogwKqr4aI6JdXA/AiFMJPg=

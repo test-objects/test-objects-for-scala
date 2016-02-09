@@ -5,5 +5,6 @@ services:
       file: ../.common/docker-compose.yml
       service: sbt
     entrypoint: .dev-op-spec/publish/entrypoint.sh
-    env_file:
-      - ../.common/env
+    environment:
+      - BINTRAY_USERNAME
+      - BINTRAY_API_KEY
