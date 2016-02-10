@@ -4,4 +4,4 @@ services:
     extends:
       file: ../.common/docker-compose.yml
       service: sbt
-    entrypoint: .dev-op-spec/unit-test/entrypoint.sh
+    entrypoint: .dev-op-spec/dev-ops/unit-test/entrypoint.sh

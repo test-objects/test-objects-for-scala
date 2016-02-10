@@ -4,7 +4,7 @@ services:
     extends:
       file: ../.common/docker-compose.yml
       service: sbt
-    entrypoint: .dev-op-spec/publish/entrypoint.sh
+    entrypoint: .dev-op-spec/dev-ops/publish/entrypoint.sh
     environment:
       - BINTRAY_USERNAME
       - BINTRAY_API_KEY

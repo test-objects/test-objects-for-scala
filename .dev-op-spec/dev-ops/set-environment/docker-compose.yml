@@ -4,7 +4,7 @@ services:
     extends:
       file: ../.common/docker-compose.yml
       service: src
-    entrypoint: .dev-op-spec/set-environment/entrypoint.sh
+    entrypoint: .dev-op-spec/dev-ops/set-environment/entrypoint.sh
     image: repworth/summon_s3:summon_s30.3
     environment:
       - AWS_REGION=us-west-2

@@ -1,0 +1,336 @@
+#!/bin/sh
+
+path_to_dev_op_spec_dir=.dev-op-spec
+path_to_dev_op_spec_cfg_file=${path_to_dev_op_spec_dir}/cfg.yml
+path_to_dev_ops_dir=${path_to_dev_op_spec_dir}/dev-ops
+
+# @info:    Prints the global help and exits with code 0
+# @return:  (none)
+globalHelp ()
+{
+  cat <<EOF
+Usage: dev-op-spec [global options] <command>
+
+dev-ops options:
+  -h, --help               show this help menu
+
+commands:
+  dev-ops                      dev ops related use cases
+
+EOF
+  exit 0
+}
+
+# @info:    Prints the dev-ops command help and exits with code 0
+# @return:  (none)
+devOpsCmdHelp ()
+{
+  cat <<EOF
+Usage: dev-op-spec dev-ops [dev-ops options] <command>
+
+global options:
+  -h, --help               show this help menu
+
+commands:
+  add                      adds a dev op
+  list                     lists dev ops
+  run                      runs a dev op
+
+EOF
+  exit 0
+}
+
+# @info:    Prints the add command help and exits with code 0
+# @return:  (none)
+addCmdHelp ()
+{
+cat <<EOF
+add usage: add [add options]
+
+add options:
+  -h, --help               show this help menu
+  -d, --name               adds a dev op with the provided name
+
+Examples:
+  $ dev-op-spec dev-ops add --name unit-test
+    > adds a dev op named unit-test
+
+Notes:
+  add is idempotent
+
+EOF
+  exit 0
+}
+
+# @info:    Prints the list command help and exits with code 0
+# @return:  (none)
+listCmdHelp ()
+{
+cat <<EOF
+list usage: list [list options]
+
+list options:
+  -h, --help               show this help menu
+
+Examples:
+  $ dev-op-spec dev-ops list
+    > lists all defined dev ops
+
+EOF
+  exit 0
+}
+
+# @info:    Prints the run command help and exits with code 0
+# @return:  (none)
+runCmdHelp ()
+{
+  cat <<EOF
+run usage: run [run options] <name of dev op> [dev op options]
+
+run options:
+  -h, --help               show this help menu
+
+dev op options: user defined
+
+Examples:
+  $ dev-op-spec dev-ops run unit-test -parallel=true
+    > Executes the dev op defined at ${path_to_dev_ops_dir}/unit-test with argument '-parallel=true' passed through
+
+  $ dev-op-spec dev-ops run gh-deploy
+    > Executes the dev op defined at ${path_to_dev_ops_dir}/gh-deploy with no arguments passed through
+
+EOF
+  exit 0
+}
+
+# @info:    Prints error messages
+# @args:    error message
+# @return:  (none)
+echoError ()
+{
+  local error_message=$1
+  echo "\033[0;31mFAIL\n\n${error_message} \033[0m"
+}
+
+# @info:    adds a dev op
+# @args:    dev op name
+# @return:  (none)
+addCmd ()
+{
+  local dev_op_name=${1}
+
+  # init .dev-op-spec dir
+  if [ ! -d ${path_to_dev_op_spec_dir} ]; then
+    mkdir ${path_to_dev_op_spec_dir}
+  fi
+
+  # init dev op spec cfg file
+  if [ ! -s ${path_to_dev_op_spec_cfg_file} ]; then
+    cat > ${path_to_dev_op_spec_cfg_file} <<EOF
+spec_version: 0.0.0
+EOF
+  fi
+
+  # init dev-ops dir
+  if [ ! -d ${path_to_dev_ops_dir} ]; then
+    mkdir ${path_to_dev_ops_dir}
+  fi
+
+  # init dev op dir
+  local path_to_dev_op_dir=${path_to_dev_ops_dir}/${dev_op_name}
+  if [ ! -d ${path_to_dev_op_dir} ]; then
+    mkdir ${path_to_dev_op_dir}
+  fi
+
+  # init dev op docker-compose.yml
+  local path_to_dev_op_docker_compose_file=.dev-op-spec/${dev_op_name}/docker-compose.yml
+  if [ ! -s ${path_to_dev_op_docker_compose_file} ]; then
+    cat > ${path_to_dev_op_docker_compose_file} <<EOF
+version: "2"
+services:
+  ${dev_op_name}:
+    image: alpine:3.3
+EOF
+  fi
+
+}
+
+# @info:    Parses and validates CLI arguments for the add command
+# @args:    add command args
+# @return:  (none)
+parseAddCmdArgs ()
+{
+ [ "$#" -ge 1 ] || addCmdHelp
+
+  for i in ${@:1}
+  do
+    case ${i} in
+      -h|--help)
+      addCmdHelp
+      ;;
+      -n|--name)
+      local dev_op_name=${@:$((i+3))}
+      addCmd ${dev_op_name}
+      break;
+      ;;
+      *)
+        echoError "Unknown argument '$i' given"
+        echo #EMPTY
+        addCmdHelp
+      ;;
+    esac
+  done
+}
+
+# @info:    lists defined dev ops
+# @return:  (none)
+listCmd ()
+{
+  for filepath in $(cd ${path_to_dev_ops_dir} && ls -d */)
+  do
+    # strip trailing /
+    echo ${filepath%/}
+  done
+}
+
+# @info:    Parses and validates CLI arguments for the list command
+# @args:    list command args
+# @return:  (none)
+parseListCmdArgs ()
+{
+  for i in ${@:1}
+  do
+    case ${i} in
+      -h|--help)
+      listCmdHelp
+      ;;
+      *)
+        echoError "Unknown argument '$i' given"
+        echo #EMPTY
+        listCmdHelp
+      ;;
+    esac
+  done
+
+  listCmd
+}
+
+# @info:    runs a dev op
+# @args:    dev op name, dev op args
+# @return:  (none)
+runCmd ()
+{
+  local dev_op_name=$1
+  local dev_op_args=$2
+
+  # add in env if present
+  path_to_env_file=${path_to_dev_ops_dir}/.common/env
+  if [ -s ${path_to_env_file} ]; then
+    while IFS= read -r ENV_LINE;
+    do
+      export ${ENV_LINE%%=*}=${ENV_LINE#*=}
+    done < ${path_to_env_file}
+  fi
+
+  # invoke requested dev op
+  docker-compose \
+  -f ${path_to_dev_ops_dir}/${dev_op_name}/docker-compose.yml \
+  run \
+  --rm \
+  --service-ports \
+  ${dev_op_name} ${dev_op_args}
+  
+}
+
+# @info:    Parses and validates CLI arguments for the run command
+# @args:    run command args
+# @return:  (none)
+parseRunCmdArgs ()
+{
+  [ "$#" -ge 1 ] || runCmdHelp
+
+  for i in ${@:1}
+  do
+    case ${i} in
+      -h|--help)
+      runCmdHelp
+      ;;
+      *)
+      local dev_op_name=${i}
+      local dev_op_args=${@:$((i+2))}
+      runCmd ${dev_op_name} ${dev_op_args}
+      break
+      ;;
+    esac
+  done
+}
+
+
+# @info:    Parses and validates CLI arguments for the dev-ops command
+# @args:    dev-ops command args
+# @return:  (none)
+parseDevOpsCmdArgs ()
+{
+
+  [ "$#" -ge 1 ] || devOpsCmdHelp
+
+  # parse up to a supported command
+  for i in ${@:1}
+  do
+    case ${i} in
+      -h|--help)
+      devOpsCmdHelp
+      ;;
+      add)
+      local add_dev_op_args=${@:$((i+2))}
+      parseAddCmdArgs ${add_dev_op_args}
+      break
+      ;;
+      list)
+      local list_args=${@:$((i+2))}
+      parseListCmdArgs ${list_args}
+      break
+      ;;
+      run)
+      local run_args=${@:$((i+2))}
+      parseRunCmdArgs ${run_args}
+      break
+      ;;
+      *)
+        echoError "Unknown argument '$i' given"
+        echo #EMPTY
+        devOpsCmdHelp
+      ;;
+    esac
+  done
+}
+
+# @info:    Parses and validates all CLI arguments
+# @args:    cli args
+# @return:  (none)
+parseCliArgs ()
+{
+  [ "$#" -ge 1 ] || globalHelp
+
+  # parse up to a supported command
+  for i in ${@:1}
+  do
+    case ${i} in
+      -h|--help)
+      globalHelp
+      ;;
+      dev-ops)
+      local dev_ops_cmd_args=${@:$((i+2))}
+      parseDevOpsCmdArgs ${dev_ops_cmd_args}
+      break
+      ;;
+      *)
+        echoError "Unknown argument '$i' given"
+        echo #EMPTY
+        globalHelp
+      ;;
+    esac
+  done
+}
+
+parseCliArgs "$@"

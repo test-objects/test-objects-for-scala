@@ -11,5 +11,5 @@ services:
     image: scratch
     dns: 8.8.8.8
     volumes:
-      - ../../:/test-objects
+      - ../../../:/test-objects
     working_dir: /test-objects
