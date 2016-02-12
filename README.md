@@ -163,6 +163,12 @@ class SomeTest
 }
 ```
 
+# Common Test Object Pitfalls
+
+## Avoid "Object Mothers"
+"Object Mother" is a(n) (anti) pattern in which common test objects are specified with specific values and then relied on by many tests to have these specific values. You can read more about it [here](http://davedevelopment.co.uk/2015/01/21/object-mothers.html).
+
+To avoid falling into the "Object Mother" trap, in lieu of canned responses, provide factory methods where "what" your test requires of an object can be explicitly specified; no more no less. 
 
 # Installation
 
