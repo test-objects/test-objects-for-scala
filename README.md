@@ -163,6 +163,14 @@ class SomeTest
 }
 ```
 
+# Common Test Object Pitfalls
+
+## Avoid "Object Mothers"
+"Object Mother" is a(n) (anti) pattern in which common test objects are specified with canned values and then *implicitly* relied on by tests to have certain values. You can read more about it [here](http://davedevelopment.co.uk/2015/01/21/object-mothers.html).
+
+To avoid falling into the "Object Mother" trap, in lieu of canned values, provide factory methods where "what" your test requires of an object can be explicitly specified; no more no less. 
+
+*Note: an exception to this guideline is for "simple" objects such as `Strings`, `Longs`, `Ints`, `Decimals`,..etc., which have only one possible attribute (their value). It is perfectly fine to offer canned values for these types of objects. Be careful however, make sure your canned responses are very explicit and not subject to miss-interpretation*
 
 # Installation
 
