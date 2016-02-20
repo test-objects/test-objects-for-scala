@@ -5,20 +5,24 @@ organization := "org.testobjects"
 
 homepage := Some(new URL("https://github.com/test-objects/test-objects-for-scala"))
 
-version := "0.1.2"
+scmInfo := Some(
+  ScmInfo(
+    new URL("https://github.com/test-objects/test-objects-for-scala"),
+    "scm:git:git@github.com:test-objects/test-objects-for-scala.git"
+  )
+)
 
-pomExtra := <scm>
-  <url>https://github.com/test-objects/test-objects-for-scala</url>
-  <connection>scm:git:git@github.com:test-objects/test-objects-for-scala.git</connection>
-</scm>
+version := "0.1.2"
 
 licenses +=("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 scalaVersion := "2.11.7"
-crossScalaVersions := Seq("2.10.4","2.11.7")
+crossScalaVersions := Seq(
+  "2.10.4",
+  "2.11.7"
+)
 
-libraryDependencies +=
-  "org.scalatest" %% "scalatest" % "2.2.5" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.5" % "test"
 
 publishTo := Some("Bintray API Realm" at "https://api.bintray.com/maven/test-objects/maven/test-objects-for-scala/;publish=1")
 
