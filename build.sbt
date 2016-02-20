@@ -5,6 +5,11 @@ organization := "org.testobjects"
 
 version := "0.1.2"
 
+pomExtra := <scm>
+  <url>https://github.com/test-objects/test-objects-for-scala</url>
+  <connection>scm:git:git@github.com:test-objects/test-objects-for-scala.git</connection>
+</scm>
+
 licenses +=("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 scalaVersion := "2.11.7"
@@ -15,7 +20,7 @@ libraryDependencies +=
 
 publishTo := Some("Bintray API Realm" at "https://api.bintray.com/maven/test-objects/maven/test-objects-for-scala/;publish=1")
 
-publishMavenStyle := true
+publishMavenStyle := false
 
 credentials += Credentials(
   "Bintray API Realm",
