@@ -4,7 +4,7 @@ services:
     extends:
       file: ../.common/docker-compose.yml
       service: sbt
-    entrypoint: sbt + publish
+    entrypoint: sbt +publish
     environment:
       - BINTRAY_USERNAME
       - BINTRAY_API_KEY
