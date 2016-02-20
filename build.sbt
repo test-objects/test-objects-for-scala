@@ -3,7 +3,7 @@ name := "test-objects-for-scala"
 
 organization := "org.testobjects"
 
-version := "0.1.1"
+version := "0.1.2"
 
 licenses +=("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
