@@ -3,6 +3,8 @@ name := "test-objects-for-scala"
 
 organization := "org.testobjects"
 
+homepage := Some(new URL("https://github.com/test-objects/test-objects-for-scala"))
+
 version := "0.1.2"
 
 pomExtra := <scm>
@@ -20,7 +22,7 @@ libraryDependencies +=
 
 publishTo := Some("Bintray API Realm" at "https://api.bintray.com/maven/test-objects/maven/test-objects-for-scala/;publish=1")
 
-publishMavenStyle := false
+publishMavenStyle := true
 
 credentials += Credentials(
   "Bintray API Realm",
