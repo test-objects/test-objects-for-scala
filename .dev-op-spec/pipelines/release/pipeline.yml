@@ -1,0 +1,6 @@
+description: all stages to create and publish a release
+stages:
+- name: unit-test
+  type: dev-op
+- name: publish-to-bintray
+  type: dev-op

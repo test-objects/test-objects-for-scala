@@ -1,6 +1,6 @@
 version: "2"
 services:
-  publish:
+  publish-to-bintray:
     extends:
       file: ../.common/docker-compose.yml
       service: sbt

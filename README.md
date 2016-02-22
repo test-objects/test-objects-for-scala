@@ -4,6 +4,12 @@
 see [Getting Started](docs/GettingStarted.md)
 
 # Installation
+
+prerequisites:
+
+- scala >= 2.10 
+- JVM >= 1.8
+
 see [Bintray](https://bintray.com/test-objects/maven/test-objects-for-scala) for latest version
 
 all versions are distributed to [jcenter](https://bintray.com/bintray/jcenter)
