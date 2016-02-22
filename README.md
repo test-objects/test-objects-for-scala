@@ -8,7 +8,7 @@ see [Getting Started](docs/GettingStarted.md)
 prerequisites:
 
 - scala >= 2.10 
-- JVM >= 1.8
+- JVM >= 1.8 (see [test-objects-for-scala-jvm1.7](https://github.com/test-objects/test-objects-for-scala-jvm1.7) if you need JVM 1.7 support)
 
 see [Bintray](https://bintray.com/test-objects/maven/test-objects-for-scala) for latest version
 
