@@ -5,21 +5,18 @@ organization := "org.testobjects"
 
 homepage := Some(new URL("https://github.com/test-objects/test-objects-for-scala"))
 
-scmInfo := Some(
-  ScmInfo(
-    new URL("https://github.com/test-objects/test-objects-for-scala"),
-    "scm:git:git@github.com:test-objects/test-objects-for-scala.git"
-  )
-)
-
-developers := List(
-  new Developer(
-    "chrisdostert",
-    "Chris Dostert",
-    "chris.dostert@live.com",
-    new URL("https://github.com/chrisdostert")
-  )
-)
+pomExtra :=
+  <scm>
+    <url>https://github.com/test-objects/test-objects-for-scala</url>
+    <connection>scm:git:git@github.com:test-objects/test-objects-for-scala.git</connection>
+  </scm>
+    <developers>
+      <developer>
+        <id>chrisdostert</id>
+        <name>Chris Dostert</name>
+        <url>https://github.com/chrisdostert</url>
+      </developer>
+    </developers>
 
 version := "0.1.4"
 
