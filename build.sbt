@@ -12,7 +12,16 @@ scmInfo := Some(
   )
 )
 
-version := "0.1.3"
+developers := List(
+  new Developer(
+    "chrisdostert",
+    "Chris Dostert",
+    "chris.dostert@live.com",
+    new URL("https://github.com/chrisdostert")
+  )
+)
+
+version := "0.1.4"
 
 licenses +=("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
@@ -21,6 +30,8 @@ crossScalaVersions := Seq(
   "2.10.4",
   "2.11.7"
 )
+
+pomIncludeRepository := { _ => false }
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.5" % "test"
 
