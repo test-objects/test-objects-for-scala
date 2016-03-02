@@ -4,15 +4,14 @@ before_script:
 - sudo apt-get remove --purge docker-engine
 - curl -fsSL https://get.docker.com/ | sh
 - sudo rm /usr/local/bin/docker-compose
-- curl -L https://github.com/docker/compose/releases/download/1.6.0/docker-compose-`uname
-  -s`-`uname -m` > docker-compose
-- chmod +x docker-compose
-- sudo mv docker-compose /usr/local/bin
-- docker run -v $(pwd):/o devopspec/cli-installer
+- sudo curl -L -o /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/1.6.0/docker-compose-Linux-x86_64
+- sudo chmod +x /usr/local/bin/docker-compose
+- sudo curl -L -o /usr/local/bin/dos https://github.com/dev-op-spec/cli/releases/download/0.7.0/dos-linux-x86_64
+- sudo chmod +x /usr/local/bin/dos
 services:
 - docker
 script:
-- ./dev-op-spec pipelines run release
+- dos pl run release
 env:
   global:
   - secure: pJxji5YmpUEcpPOxkkEGN3HWCGEnNTI44Ex6JTlOFOAJ2zmX9SfwvKWO+r8iacq3o1mh/Kwj2EAUjr9XHOIiGADkqssvpDILnZM8QBWhnbc2blgSHlyA1JezWMZMO+761C1QUlw64AqMCQ+H4zJwTukisD1Kt397NgiSKCfiQzOaC832hOFCUe1QVmdaAlsYN5xo2zNLoSR6+lspBlTb8XncIfNElNh+7TBwzN+Z2CRW2DfJ8Q+6PCArijhaL28sIZAZZ84BkNe1Q0ig5k1Y8O4W3yxXhnZrTHiOZPIDVgjyiXb0IWjN8BpmnyLnCe5TvdjssGhkQCU5fr91LintCCVRmFpRguNNrRrfh7o//FKu6yzKN4AErKrXJ+CB+oT3+eEysHUiyQgwSoGfltA8xckunL+kiKjXUUNlRiyc1HL/CF/k91wqtI+c4QY3czzw9Ytpx40QJscoBiVgs4/Mzgq/wLLNkpKlDKO3lgdILzyJlkdEd85M9XdOQhczdG5J8nyHrF++qB+Yr7btFkpIuOS6CTJA6hpHiiKOxevu5h/MwnH9cO9zj5hQWnafIzaqLjtgQsj/bU8LQ3Ni3nlUt7RA1SH2f0lJk/yif2+TBYmXZs1ho3vmYvD7zmT/48gA2EUHwOF1e/OxOKGhPw0T7NsaAk9CwE7xT+6V4WoZeaM=
