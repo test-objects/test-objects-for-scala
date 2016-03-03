@@ -6,17 +6,19 @@ organization := "org.testobjects"
 homepage := Some(new URL("https://github.com/test-objects/test-objects-for-scala"))
 
 pomExtra :=
-  <scm>
-    <url>https://github.com/test-objects/test-objects-for-scala</url>
-    <connection>scm:git:git@github.com:test-objects/test-objects-for-scala.git</connection>
-  </scm>
-    <developers>
-      <developer>
-        <id>chrisdostert</id>
-        <name>Chris Dostert</name>
-        <url>https://github.com/chrisdostert</url>
-      </developer>
-    </developers>
+  (
+    <scm>
+      <url>https://github.com/test-objects/test-objects-for-scala</url>
+      <connection>scm:git:git@github.com:test-objects/test-objects-for-scala.git</connection>
+    </scm>
+      <developers>
+        <developer>
+          <id>chrisdostert</id>
+          <name>Chris Dostert</name>
+          <url>https://github.com/chrisdostert</url>
+        </developer>
+      </developers>
+    )
 
 version := "0.1.4"
 
